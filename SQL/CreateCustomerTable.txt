@@ -1,0 +1,42 @@
+USE [TechTestVP]
+GO
+
+/****** Object:  Table [dbo].[vpt_Customer]    Script Date: 13/12/2023 18:29:46 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[vpt_Customer](
+	[cus_guid] [uniqueidentifier] NOT NULL,
+	[cus_id] [nvarchar](25) NOT NULL,
+	[cus_name] [nvarchar](100) NOT NULL,
+	[cus_address1] [nvarchar](100) NOT NULL,
+	[cus_address2] [nvarchar](100) NOT NULL,
+	[cus_town] [nvarchar](100) NOT NULL,
+	[cus_postcode] [nvarchar](10) NOT NULL,
+	[cus_country] [nvarchar](50) NOT NULL,
+	[cus_last_traded] [datetime] NULL,
+ CONSTRAINT [PK_vpt_Customer] PRIMARY KEY CLUSTERED 
+(
+	[cus_guid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[vpt_Customer] ADD  CONSTRAINT [DF_vpt_Customer_cus_id]  DEFAULT ('') FOR [cus_id]
+GO
+
+ALTER TABLE [dbo].[vpt_Customer] ADD  CONSTRAINT [DF_vpt_Customer_cus_address1]  DEFAULT ('') FOR [cus_address1]
+GO
+
+ALTER TABLE [dbo].[vpt_Customer] ADD  CONSTRAINT [DF_vpt_Customer_cus_address2]  DEFAULT ('') FOR [cus_address2]
+GO
+
+ALTER TABLE [dbo].[vpt_Customer] ADD  CONSTRAINT [DF_vpt_Customer_cus_town]  DEFAULT ('') FOR [cus_town]
+GO
+
+ALTER TABLE [dbo].[vpt_Customer] ADD  CONSTRAINT [DF_vpt_Customer_cus_postcode]  DEFAULT ('') FOR [cus_postcode]
+GO
+

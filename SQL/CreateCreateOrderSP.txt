@@ -1,0 +1,62 @@
+USE [TechTestVP]
+GO
+
+/****** Object:  StoredProcedure [dbo].[vpp_Order_Create]    Script Date: 13/12/2023 18:32:32 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		C Hyde
+-- Create date: 13/12/2023
+-- Description:	Create Order
+-- =============================================
+CREATE PROCEDURE [dbo].[vpp_Order_Create]
+	-- Add the parameters for the stored procedure here
+		@ord_guid UNIQUEIDENTIFIER
+	,	@cus_id NVARCHAR(25)
+	,	@ord_customer_ref NVARCHAR(50)
+	,	@ord_required_date DATETIME
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+		DECLARE @cus_guid UNIQUEIDENTIFIER,
+				@orderNumber INT,
+				@incName NVARCHAR(50) = 'Order'
+				
+		SELECT @cus_guid = cus_guid
+		FROM vpt_Customer
+		WHERE cus_id = @cus_id
+
+		EXEC vpt_Increment_Get_Next @incName, @orderNumber OUTPUT
+
+
+		INSERT INTO vpt_Order
+				(ord_guid
+				,ord_created
+				,ord_customer_ref
+				,ord_order_num
+				,ord_cus_guid
+				,ord_required_date
+				,order_is_shipped)
+			VALUES
+				(@ord_guid
+				,GETDATE()
+				,@ord_customer_ref
+				,@orderNumber
+				,@cus_guid
+				,@ord_required_date
+				,0)
+
+				SELECT * FROM vpt_Order
+				WHERE ord_guid = @ord_guid
+
+
+END
+GO
+

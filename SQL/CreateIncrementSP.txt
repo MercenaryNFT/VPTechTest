@@ -1,0 +1,36 @@
+USE [TechTestVP]
+GO
+
+/****** Object:  StoredProcedure [dbo].[vpt_Increment_Get_Next]    Script Date: 13/12/2023 18:33:27 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		C Hyde
+-- Create date: 13/12/2023
+-- Description:	Get Next Increment
+-- =============================================
+CREATE PROCEDURE [dbo].[vpt_Increment_Get_Next]
+	-- Add the parameters for the stored procedure here
+	@inc_name NVARCHAR(50),
+	@result int OUTPUT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT @result = inc_last_id + 1
+	FROM vpt_Increment
+	WHERE inc_name = @inc_name
+
+	UPDATE vpt_Increment
+	SET inc_last_id = inc_last_id + 1
+	WHERE inc_name = @inc_name
+	
+END
+GO
+

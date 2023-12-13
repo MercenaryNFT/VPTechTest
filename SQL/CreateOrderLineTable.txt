@@ -1,0 +1,44 @@
+USE [TechTestVP]
+GO
+
+/****** Object:  Table [dbo].[vpt_Order_Line]    Script Date: 13/12/2023 18:30:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[vpt_Order_Line](
+	[orl_guid] [uniqueidentifier] NOT NULL,
+	[orl_ord_guid] [uniqueidentifier] NOT NULL,
+	[orl_prd_guid] [uniqueidentifier] NOT NULL,
+	[orl_qty] [int] NOT NULL,
+	[orl_price] [decimal](19, 2) NOT NULL,
+	[orl_uom] [nvarchar](10) NOT NULL,
+ CONSTRAINT [PK_vpt_Order_Line] PRIMARY KEY CLUSTERED 
+(
+	[orl_guid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[vpt_Order_Line] ADD  CONSTRAINT [DF_vpt_Order_Line_orl_price]  DEFAULT ((0.00)) FOR [orl_price]
+GO
+
+ALTER TABLE [dbo].[vpt_Order_Line] ADD  CONSTRAINT [DF_vpt_Order_Line_orl_uom]  DEFAULT ('') FOR [orl_uom]
+GO
+
+ALTER TABLE [dbo].[vpt_Order_Line]  WITH CHECK ADD  CONSTRAINT [FK_vpt_Order_Line_vpt_Order] FOREIGN KEY([orl_guid])
+REFERENCES [dbo].[vpt_Order] ([ord_guid])
+GO
+
+ALTER TABLE [dbo].[vpt_Order_Line] CHECK CONSTRAINT [FK_vpt_Order_Line_vpt_Order]
+GO
+
+ALTER TABLE [dbo].[vpt_Order_Line]  WITH CHECK ADD  CONSTRAINT [FK_vpt_Order_Line_vpt_Product] FOREIGN KEY([orl_prd_guid])
+REFERENCES [dbo].[vpt_Product] ([prd_guid])
+GO
+
+ALTER TABLE [dbo].[vpt_Order_Line] CHECK CONSTRAINT [FK_vpt_Order_Line_vpt_Product]
+GO
+

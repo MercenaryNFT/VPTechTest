@@ -1,0 +1,57 @@
+USE [TechTestVP]
+GO
+
+/****** Object:  StoredProcedure [dbo].[vpp_Order_Line_Create]    Script Date: 13/12/2023 18:33:16 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		C Hyde
+-- Create date: 13/12/2023
+-- Description:	Create Order Line
+-- =============================================
+CREATE PROCEDURE [dbo].[vpp_Order_Line_Create]
+	-- Add the parameters for the stored procedure here
+		@ord_guid UNIQUEIDENTIFIER
+	,	@prd_id INT
+	,	@orl_qty INT
+	,	@orl_uom NVARCHAR(10)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @prd_guid UNIQUEIDENTIFIER
+		,	@prd_price DECIMAL(19,2)
+		,	@orl_guid UNIQUEIDENTIFIER
+
+	SELECT @prd_guid = prd_guid, @prd_price = prd_price, @orl_guid = NEWID()
+	FROM vpt_Product
+	WHERE prd_id = @prd_id
+
+INSERT INTO [dbo].[vpt_Order_Line]
+           ([orl_guid]
+           ,[orl_ord_guid]
+           ,[orl_prd_guid]
+           ,[orl_qty]
+           ,[orl_price]
+           ,[orl_uom])
+     VALUES
+           (@orl_guid
+           ,@ord_guid
+           ,@prd_guid
+           ,@orl_qty
+           ,@prd_price
+           ,@orl_uom)
+
+
+		   SELECT NULL FROM vpt_Order_Line
+		   WHERE orl_guid = @orl_guid
+
+END
+GO
+
