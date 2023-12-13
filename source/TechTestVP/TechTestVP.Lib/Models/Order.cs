@@ -21,5 +21,21 @@ namespace TechTestVP.Lib.Models
         public DateTime? RequiredDate { get; set; }
         public bool IsShipped { get; set; }
 
+        public Order ToModel(OrderDTO o)
+        {
+            List<OrderLine> lines = new List<OrderLine>();
+            foreach(OrderLineDTO l in o.Lines)
+            {
+                lines.Add(new OrderLine().ToModel(l));
+            }
+            return new Order
+            {
+                CustomerRef = o.CustomerRef,
+                RequiredDate = o.RequiredDate,
+                Lines = lines,
+                Customer = new Customer { Id = o.Customer.Id}
+            };
+        }
+
     }
 }

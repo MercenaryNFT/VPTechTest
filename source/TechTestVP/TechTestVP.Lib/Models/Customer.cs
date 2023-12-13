@@ -9,6 +9,7 @@ namespace TechTestVP.Lib.Models
     public class Customer
     {
         public Guid Guid { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }

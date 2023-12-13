@@ -37,7 +37,7 @@ namespace TechTestVP.Data.Repositories
             return await _db.ExecuteAsync(sql, parameters) > 0;
         }
 
-        public async Task<int> InsertOrder(OrderDTO order)
+        public async Task<int> InsertOrder(Order order)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace TechTestVP.Data.Repositories
             }
         }
 
-        private async Task<bool> InsertOrderLine(OrderLineDTO line, Guid ord_guid)
+        private async Task<bool> InsertOrderLine(OrderLine line, Guid ord_guid)
         {
             Parameters parameters = new Parameters();
             parameters.Add("@ord_guid", ord_guid);

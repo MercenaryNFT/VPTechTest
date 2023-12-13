@@ -50,7 +50,9 @@ namespace TechTestVP.Engine.Services
                     };
                 }
 
-                int orderNumber = await _orderRepo.InsertOrder(order);
+                Order newOrder = new Order().ToModel(order);
+
+                int orderNumber = await _orderRepo.InsertOrder(newOrder);
 
                 if (orderNumber == 0)
                 {
