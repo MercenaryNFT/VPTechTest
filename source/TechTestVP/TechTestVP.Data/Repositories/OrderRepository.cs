@@ -22,13 +22,13 @@ namespace TechTestVP.Data.Repositories
             _db = dbConnectionFactory;
         }
 
-        public async Task<bool> CheckIfOrderImportedExists(string customerRef, string customerId)
+        public async Task<bool> CheckIfOrderExists(string customerRef, string customerId)
         {
             string sql = @"SELECT COUNT(*)
                         FROM vpt_Order o
-                        INNER JOIN vpt_Customer c on o.ord_cus_guid = c.cus_guid\
+                        INNER JOIN vpt_Customer c on o.ord_cus_guid = c.cus_guid
                         WHERE o.ord_customer_ref = @CustomerRef
-                        AND c.id = @CustomerId";
+                        AND c.cus_id = @CustomerId";
 
             Parameters parameters = new Parameters();
             parameters.Add("@CustomerRef", customerRef);

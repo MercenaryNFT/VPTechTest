@@ -11,6 +11,6 @@ namespace TechTestVP.Data.Repositories.Interfaces
     public interface IOrderRepository
     {
         public Task<int> InsertOrder(Order order);
-        public Task<bool> CheckIfOrderImportedExists(string customerRef, string customerName);
+        public Task<bool> CheckIfOrderExists(string customerRef, string customerName);
     }
 }
