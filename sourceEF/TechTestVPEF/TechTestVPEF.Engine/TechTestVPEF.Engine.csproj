@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TechTestVPEF.Data\TechTestVPEF.Data.csproj" />
+    <ProjectReference Include="..\TechTestVPEF.Lib\TechTestVPEF.Lib.csproj" />
+  </ItemGroup>
+
+</Project>
